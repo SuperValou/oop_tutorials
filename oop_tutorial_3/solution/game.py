@@ -67,7 +67,7 @@ class TicTacToeGame(object):
 
     def is_filled(self):
         # TODO: return whether or not the grid is full
-        for i in range(0, 8):
+        for i in range(0, 9):
             if self._grid[i] == CellSymbol.BLANK:
                 return False
         return True
