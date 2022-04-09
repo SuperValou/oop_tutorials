@@ -14,7 +14,7 @@ class UserInterface(object):
 
         while True:
             # display the board in the console
-            self._show_board()
+            self.show_board()
 
             # get the player input
             player_input = input("{player}, your turn!\n"
@@ -34,20 +34,24 @@ class UserInterface(object):
 
             # play the move
             # TODO: play the move with 'cell_index'
+            self._game.play_move(cell_index)
 
             # check if the game is won by the current player
             # TODO: check if the game is won by the current player
+            if self._game.is_won_by(self._game.current_player):
+                break
 
             # check if the game can still be played
             # TODO: check if the game can still be played
+            if self._game.is_filled():
+                break
 
-            # swap player
-            # TODO: change player
+            self._game.swap_player()
 
-        self._show_board()
-        self._display_game_over()
+        self.show_board()
+        self.display_game_over()
 
-    def _show_board(self):
+    def show_board(self):
         board = ""\
             "__________________\n"\
             "|     |     |     |\n"\
@@ -60,11 +64,11 @@ class UserInterface(object):
             "|  {6}  |  {7}  |  {8}  |\n"\
             "|_____|_____|_____|\n"
 
-        board_symbols = [self._get_drawing(symbol) for symbol in self._game.grid]
+        board_symbols = [self.get_drawing(symbol) for symbol in self._game.grid]
         board = board.format(*board_symbols)
         print(board)
 
-    def _get_drawing(self, symbol):
+    def get_drawing(self, symbol):
         if symbol == CellSymbol.BLANK:
             return " "
         if symbol == CellSymbol.O_SYMBOL:
@@ -73,6 +77,9 @@ class UserInterface(object):
             return "X"
         raise ValueError("{symbol} is not a symbol".format(symbol=symbol))
 
-    def _display_game_over(self):
+    def display_game_over(self):
         # TODO: congratulate the winner, or tell the players that the game is a tie
-        pass
+        if self._game.is_won_by(self._game.current_player):
+            print("{player} wins!".format(player=self._game.current_player))
+        else:
+            print("It's a tie!")

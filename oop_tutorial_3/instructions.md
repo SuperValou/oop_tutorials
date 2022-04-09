@@ -2,7 +2,7 @@
 
 On va plonger dans la séparation des responsabilités en créant un mini-jeu.
 
-## Prérequis
+### Introduction
 
 Une application est un peu comme un restaurant. Quand vous allez au restaurant, vous n'intéragissez jamais avec le cuisinier, alors que c'est pourtant lui qui prépare votre plat. Techniquement, vous pourriez débarquer en cuisine et manger directement debout au milieu des casseroles, ça marcherait très bien, mais ce serait désagréable pour tout le monde et très vite ingérable avec plusieurs clients.
 
@@ -19,7 +19,43 @@ Un autre bénéfice est qu'un serveur peut être intervertit avec un autre serve
 Dans une application, il y a donc une interface utilisateur, la UI ("you-aïe"), qui a pour préoccupation d'afficher des choses à l'utilisateur, de récupérer ses inputs, et de lui re-présenter des choses en fonction de ces inputs. 
 Tout ce qu'on appelle la logique métier (la cuisine), qui consiste à manipuler des données, faire des calculs, créer des objets, doit être distinctement séparé de la UI, dont ce n'est pas le rôle. Ainsi, on pourra par la suite facilement changer de UI, sans impacter les fonctionnalités de l'application.
 
-### Code
+### Présentation du projet
+
+Nous allons programmer un tic-tac-toe, ce jeu très simple où deux joueurs tentent d'aligner respectivement trois X ou trois O dans une grille de 3x3.
+
+Pour que l'exercice ne soit pas trop difficile, un squelette de code est déjà étayé. Dans les fichiers fournis, vous trouverez donc :
+- main.py, contenant un main (le programme principal à executer)
+- game.py, contenant:
+	- la classe TicTacToeGame, contenant la logique du jeu, qu'il va falloir compléter 
+	- la classe CellSymbol, qui sert simplement d'enum pour représenter un X / un O / une case vide
+- ui.py, contenant la class UserInterface, qu'il va falloir compléter
+
+### Echauffement
+
+- Exécuter le programme pour s'assurer qu'il ne fait pas grand chose de formidable. Et c'est déjà mieux que crasher, figurez-vous.
+
+> Note: ne taper aucun nom pour un joueur équivaut à taper la string "Player 1" ou "Player 2" par défaut. Pour le moment, ça ne change rien, mais vous trouverez vite ça pratique pour vos tests sur la durée.
+
+- Lisez le code de TicTacToeGame :
+	- Déterminez ce qu'il se passe dans le constructeur
+	- Notez quelles sont les propriétés disponibles. Ces propriétés font partie de ce qui est exposé vers l'exterieur, c'est-à-dire que UserInterface aura certainement intérêt à faire appel à ces propriétés de TicTacToeGame.
+	- Notez quelles sont les méthodes disponibles. De même, toute méthode qui ne commence par par un "_" pourra être appelée par UserInterface, ce qui lui sera probablement très utile.
+
+> Remarque: une convention en Python est qu'une méthode commençant par un "_" n'est pas censée être utilisée depuis l'exterieur, seulement en interne par la classe qui la déclare.
+
+- Lisez le code de UserInterface :
+	- Déterminez ce que fait le constructeur
+	- Déterminez ce qu'il se passe dans la méthode show()
+
+
+> Note : si vous ne connaissez pas le mot-clé `while`, `while` execute une boucle *tant que* la condition qui lui est associée est vraie. Un `while True:` va donc tourner pour toujours, sauf si le mot clé `break` est appelé à l'intérieur (`break` stoppe immédiatement n'importe quelle boucle pour en sortir).
+
+> Note : le mot clé `continue` permet de passer immédiatement à l'itération suivante d'une boucle en cours. Cette information est purement indicative, il n'est pas nécessaire d'utiliser de `continue` dans cet exercice, ni de toucher à ceux qui sont en place.
+
+> Note : `try` et `except` permettent de gérer un `raise` qui aurait potentiellement lieu dans le bloc try. Il n'est pas nécessaire de s'intéresser à ça pour cet exercice.
+
+
+### Snippets potentiellement utiles
 
 Pour itérer de 0 à 100:
 ```python
@@ -27,7 +63,7 @@ for i in range(0, 100):
 	print(i)
 ```
 
-Pour balancer une erreur et arrêter le programme:
+Pour déclencher une erreur qui stoppe tout le programme:
 ```python
 if something_is_wrong:
 	raise ValueError("Something went wrong!")
@@ -43,21 +79,10 @@ while True:
 print("I broke out of the loop!")
 ```
 
-### Echauffement
+#### 1 - Initialisation des joueurs
 
-- Exécuter le programme pour s'assurer qu'il dit bien bonjour
-
-
-
-### ?
-
-
-#### 1 - ?
-
-
-
-- Implémenter initialize()
-> Note: Pensez à assigner les champs concernant les joueurs et à remplir la grille avec le CellSymbol vide.
+Dans TicTacToeGame:
+- Implémenter initialize() pour que le jeu retienne le nom des joueurs, et qu'il sache qui est le joueur qui doit jouer.
 
 - Implémenter swap_player()
 
