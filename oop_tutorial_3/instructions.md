@@ -134,24 +134,36 @@ Dans la class UserInterface :
 
 - Dans UserInterface, implémenter display_game_over() pour indiquer à l'utilisateur qu'il y a match nul.
 
-#### 5 - Combat de titans
+#### 5 - Accès à la victoire
 Il est temps de déterminer un vainqueur à ce jeu fantastique quasiment au même niveau que Fortnite.
 
-- Dans TicTacToeGame
+- Dans TicTacToeGame, implémenter la méthode is_won_by().
 
-- Jouer 0, 8, 1, 7, 2, et vérifier que le joueur 1 l'emporte (ligne du haut)
-- Jouer 1, 0, 2, 3, 4, 6 et vérifier que le joueur 2 l'emporte (colonne de gauche)
-- Jouer 2, 0, 8, 4, 5 et vérifier que le joueur 1 l'emporte (colonne de droite)
-- Jouer 4, 0, 2, 1, 6 et vérifier que le joueur 1 l'emporte (diagonale / )
-- Jouer 2, 0, 3, 4, 5, 8 et vérifier que le joueur 2 l'emporte (diagonale \ )
+Au lieu d'essayer d'écrire tous les cas d'un coup, procédez par étapes.
+Vous pouvez commencez par renvoyer True si juste la première ligne est occupée par le symbole du joueur,  et vérifier que ce cas-là fonctionne correctement. 
+Ensuite, vous pouvez faire en sorte de vérifier la même chose pour toutes les lignes horizontales. 
+Ensuite, pareil pour une seule colonne, puis les trois colonnes, puis les diagonales.
+Si vous en avez envie, vous pouvez faire des sous-fonctions pour différent cas.
+Notez qu'il y a plusieurs façons possibles d'implémenter cette méthode, à vous de trouver celle qui vous convient.
 
-- Jouer 1, 0, puis rentrer 'quit' et vérifier que le programme s'arrête sur un match nul
+- Dans UserInterface, implémenter le "# TODO: check if the game is won by the current player" et sortir de la boucle si c'est le cas.
 
-- Jouer 0, 0, et vérifier que le programme s'arrête avec une erreur indiquant qu'il est interdit de recouvrir un symbole déjà placé
+- Dans UserInterface, modifier display_game_over() pour indiquer qui a gagné, s'il y a un gagnant.
 
-- Jouer, 4, 1, 'oups' et vérifier que le programme affiche un message en continuant normalement
+- Executer le main :
+	- Jouer 0, 8, 1, 7, 2, et vérifier que le joueur 1 l'emporte (ligne du haut)
+	- Jouer 1, 0, 2, 3, 4, 6 et vérifier que le joueur 2 l'emporte (colonne de gauche)
+	- Jouer 2, 0, 8, 4, 5 et vérifier que le joueur 1 l'emporte (colonne de droite)
+	- Jouer 4, 0, 2, 1, 6 et vérifier que le joueur 1 l'emporte (diagonale / )
+	- Jouer 2, 0, 3, 4, 5, 8 et vérifier que le joueur 2 l'emporte (diagonale \ )
 
+	- Jouer 1, 0, puis rentrer 'quit' et vérifier que le programme s'arrête sur un match nul
 
+	- Jouer 0, 0, et vérifier que le programme s'arrête avec une erreur indiquant qu'il est interdit de recouvrir un symbole déjà placé
+
+	- Jouer, 4, 1, 'oups' et vérifier que le programme affiche un message en continuant normalement
+
+Bravo : le jeu peut maintenant sortir sur PS5. Le vrai gagnant c'est toi.
 
 
 
