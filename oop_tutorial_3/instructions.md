@@ -2,6 +2,7 @@
 
 On va plonger dans la séparation des responsabilités en créant un mini-jeu.
 
+
 ### Introduction
 
 Une application est un peu comme un restaurant. Quand vous allez au restaurant, vous n'intéragissez jamais avec le cuisinier, alors que c'est pourtant lui qui prépare votre plat. Techniquement, vous pourriez débarquer en cuisine et manger directement debout au milieu des casseroles, ça marcherait très bien, mais ce serait désagréable pour tout le monde et très vite ingérable avec plusieurs clients.
@@ -19,6 +20,7 @@ Un autre bénéfice est qu'un serveur peut être intervertit avec un autre serve
 Dans une application, il y a donc une interface utilisateur, la UI ("you-aïe"), qui a pour préoccupation d'afficher des choses à l'utilisateur, de récupérer ses inputs, et de lui re-présenter des choses en fonction de ces inputs. 
 Tout ce qu'on appelle la logique métier (la cuisine), qui consiste à manipuler des données, faire des calculs, créer des objets, doit être distinctement séparé de la UI, dont ce n'est pas le rôle. Ainsi, on pourra par la suite facilement changer de UI, sans impacter les fonctionnalités de l'application.
 
+
 ### Présentation du projet
 
 Nous allons programmer un tic-tac-toe, ce jeu très simple où deux joueurs tentent d'aligner respectivement trois X ou trois O dans une grille de 3x3.
@@ -29,6 +31,7 @@ Pour que l'exercice ne soit pas trop difficile, un squelette de code est déjà 
 	- la classe TicTacToeGame, contenant la logique du jeu, qu'il va falloir compléter 
 	- la classe CellSymbol, qui sert simplement d'enum pour représenter un X / un O / une case vide
 - ui.py, contenant la class UserInterface, qu'il va falloir compléter
+
 
 ### Echauffement
 
@@ -55,12 +58,19 @@ Pour que l'exercice ne soit pas trop difficile, un squelette de code est déjà 
 > Note : `try` et `except` permettent de gérer un `raise` qui aurait potentiellement lieu dans le bloc try. Il n'est pas nécessaire de s'intéresser à ça pour cet exercice.
 
 
-### Snippets potentiellement utiles
+### Snippets
 
-Pour itérer de 0 à 100:
+Pour printer les nombres de 0 inclu à 10 inclu:
 ```python
-for i in range(0, 100):
+for i in range(0, 11):   # range(a, b) includes a but excludes b
 	print(i)
+```
+
+Pour setter le premier élément d'une liste à "hey":
+```python
+my_list = ["hi", "hello", "sup"]
+my_list[0] = "hey"
+print(my_list)  # -> ["hey", "hello", "sup"]
 ```
 
 Pour déclencher une erreur qui stoppe tout le programme:
@@ -79,37 +89,55 @@ while True:
 print("I broke out of the loop!")
 ```
 
+
 #### 1 - Initialisation des joueurs
 
 Dans TicTacToeGame:
-- Implémenter initialize() pour que le jeu retienne le nom des joueurs, et qu'il sache qui est le joueur qui doit jouer.
+- Implémenter initialize() pour que le jeu retienne le nom des joueurs, et qu'il sache qui est le joueur courant. On considère que le joueur 1 commence la partie en premier.
 
-- Implémenter swap_player()
+- Implémenter get_player_symbol(), pour renvoyer l'une des constantes de la class CellSymbol en fonction du joueur en paramètre. Vous pouvez considérer que le joueur 1 utilise les X, et le joueur 2 les O.
 
-- Implémenter is_filled()
-> Note: 
-
-- Implémenter get_player_symbol()
-> Note: vous devez renvoyer l'une des constantes de la class CellSymbol en fonction du nom du joueur. Vous pouvez considérer que la première personne qui joue utilise forcément les X, et la personne suivante les O.
-
-- Implémenter play_move()
-> Astuce: le paramètre de la fonction indique où placer le symbole du joueur courant. Notez qu'il est interdit de placer un symbole en dehors de la grille, ou de recouvrir un symbole déjà placé.
-
-- Implémenter la méthode is_won_by()
-> Astuce: au lieu d'essayer de tout écrire d'un coup, procédez par étapes.
-Vous pouvez commencez par renvoyer True si juste la première ligne est occupée par le symbole du joueur,  et vérifier que ce cas-là fonctionne correctement. 
-Ensuite, vous pouvez faire en sorte de vérifier la même chose pour toutes les lignes horizontales. 
-Ensuite, pareil pour une colonne, puis les trois colonnes, puis les diagonales.
-Si vous en avez envie, vous pouvez faire des fonctions séparées pour différent cas.
-Notez qu'il y a plusieurs façons possibles de résoudre ce problème, à vous de trouver celle qui vous convient.
-
-- Implémenter display_game_over()
-> Note: affichez le nom du gagnant ou indiquez qu'il y a match nul
+- Implémenter swap_player() pour que le jeu intervertisse le joueur courant avec l'autre joueur.
 
 
+#### 2 - Branchement de la UI
 
-# Tests
-> Note: pour ces tests, une phrase telle que "Jouer 0, 4, 8" signifie "Player One rentre 0, puis Player Two rentre 4, puis Player One rentre 8"
+Maintenant que notre TicTacToeGame sait au moins se souvenir du prénom de ceux qui veulent jouer, faisons appel à son savoir-faire depuis l'extérieur.
+
+Dans la méthode show() de UserInterface:
+- Repérer où on appelle la méthode initialize() de l'objet TicTacToeGame, pour avoir un exemple
+- Implémenter le "# TODO: change player" pour faire véritablement le changement de joueur
+
+- Executer le main, et vérifier que le joueur change après chaque coup
+
+
+#### 3 - Jouer un coup
+
+Le jeu est déjà incroyable en l'état, mais accrochez-vous, on peut faire encore mieux.
+
+Dans la class TicTacToeGame : 
+- Implémenter play_move(). Le paramètre de la fonction est un int, l'index de la grille où placer le symbole du joueur courant. Vous n'avez rien à modifier en dehors de cette fonction, utilisez ce dont vous disposez déjà.
+
+Dans la class UserInterface :
+- Implémenter le "# TODO: play the move"
+
+- Executer le main, et vérifier qu'on peut désormais jouer des coups.
+
+- Jouez toujours 4 pour les deux joueurs. Jouez 999, puis -1. Jouez 'salut'. Modifiez play_move() pour gérer les cas qui vous semblent problématiques.
+
+
+#### 4 - Match nul
+
+- Dans TicTacToeGame, implémenter is_filled() pour renvoyer si oui ou non le plateau est entièrement rempli.
+- Dans UserInterface.show(), implémenter le "# TODO: check if the game can still be played" pour sortir de la boucle lorsque le plateau est rempli.
+- Executer le main et remplir le plateau pour vérifier que le jeu s'arrête.
+
+- Dans UserInterface, implémenter display_game_over() pour indiquer à l'utilisateur qu'il y a match nul.
+
+#### 5 - Combat de titans
+Il est temps de déterminer un vainqueur à ce jeu fantastique quasiment au même niveau que Fortnite.
+
+- Dans TicTacToeGame
 
 - Jouer 0, 8, 1, 7, 2, et vérifier que le joueur 1 l'emporte (ligne du haut)
 - Jouer 1, 0, 2, 3, 4, 6 et vérifier que le joueur 2 l'emporte (colonne de gauche)
