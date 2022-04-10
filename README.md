@@ -1,5 +1,7 @@
 # Object Oriented Programming (OOP) Turorials
 
-A set of exercices I made to help teach OOP concepts with Python.
+A set of exercices I made to help teach OOP concepts in Python.
 
-- OOP 3 : Separation of concerns by creating a tic-tac-toe game and its UI.
+- OOP 1: Classes, properties, methods, inheritance - Car, Bus, Vehicle
+- OOP 2: Encapsulation - Vector3, Blendshapes
+- OOP 3: Separation of concerns - Tic-tac-toe game, UI
