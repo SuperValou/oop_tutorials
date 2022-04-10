@@ -1,4 +1,4 @@
-# Object Oriented Programming (OOP) Turorials
+# Object Oriented Programming (OOP) Tutorials
 
 A set of exercices I made to help teach OOP concepts in Python.
 
